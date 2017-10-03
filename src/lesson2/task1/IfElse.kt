@@ -57,10 +57,8 @@ fun timeForHalfWay(t1: Double, v1: Double,
     val thirdpart = t3 * v3
     val route = firstpart + secondpart + thirdpart
     if (firstpart >= (route / 2.0)) return t1 - (firstpart - route / 2) / v1
-//     if (firstpart >= (route / 2.0)) return (route / 2.0) / v1
     else if ((firstpart + secondpart) < (route / 2.0)) return (thirdpart - route / 2.0) / v3 + t1 + t2
-//    else if ((firstpart + secondpart) > (route / 2.0))
-         else return (route / 2.0 - firstpart) / v2 + t1
+    else return (route / 2.0 - firstpart) / v2 + t1
 }
 
 /**
@@ -75,9 +73,13 @@ fun timeForHalfWay(t1: Double, v1: Double,
 fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX1: Int, rookY1: Int,
                        rookX2: Int, rookY2: Int): Int {
-    if (((kingX != rookX1) && (kingY != rookY1)) && ((kingX != rookX2) && (kingY != rookY2))) return 0
-    else if (((kingX == rookX1) || (kingY == rookY1)) && ((kingX != rookX2) && (kingY != rookY2))) return 1
-    else if (((kingX != rookX1) && (kingY != rookY1)) && ((kingX == rookX2) || (kingY == rookY2))) return 2
+    val rookrouteX1 = (kingX == rookX1)
+    val rookrouteX2 = (kingX == rookX2)
+    val rookrouteY1 = (kingY == rookY1)
+    val rookrouteY2 = (kingY == rookY2)
+    if ((!rookrouteX1 && !rookrouteY1) && (!rookrouteX2 && !rookrouteY2)) return 0
+    else if ((rookrouteX1 || rookrouteY1) && (!rookrouteX2 && !rookrouteY2)) return 1
+    else if ((!rookrouteX1 && !rookrouteY1) && (rookrouteX2 || rookrouteY2)) return 2
     else
         return 3
 
@@ -96,9 +98,13 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
                           bishopX: Int, bishopY: Int): Int {
-    if (((kingX == rookX) || (kingY == rookY)) && ((Math.abs(kingX - bishopX)) == (Math.abs(kingY - bishopY)))) return 3
-    else if (((kingX != rookX) && (kingY != rookY)) && ((Math.abs(kingX - bishopX)) == (Math.abs(kingY - bishopY)))) return 2
-    else if (((kingX == rookX) || (kingY == rookY)) && ((Math.abs(kingX - bishopX)) != (Math.abs(kingY - bishopY)))) return 1
+    val bishoprouteX = (Math.abs(kingX - bishopX))
+    val bishoprouteY = (Math.abs(kingY - bishopY))
+    val rookrouteX = (kingX == rookX)
+    val rookrouteY = (kingY == rookY)
+    if ((rookrouteX || (kingY == rookY)) && (bishoprouteX == bishoprouteY)) return 3
+    else if ((!rookrouteX && !rookrouteY) && (bishoprouteX == bishoprouteY)) return 2
+    else if ((rookrouteX || rookrouteY) && (bishoprouteX != bishoprouteY)) return 1
     else return 0
 }
 
@@ -114,10 +120,10 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
     val a2 = pow(a, 2.0)
     val b2 = pow(b, 2.0)
     val c2 = pow(c, 2.0)
-    if ((a + b <= c) || (a + c <= b) || (b + c <= a)) return -1
-    else if ((a2 + b2 == c2) || (a2 + c2 == b2) || (c2 + b2 == a2)) return 1
-    else if ((a2 + b2 > c2) && (a2 + c2 > b2) && (c2 + b2 > a2)) return 0
-    return 2
+    if ((a + b <= c) || (a + c <= b) || (b + c <= a)) return -1 //Проверяем существование треугольника
+    else if ((a2 + b2 == c2) || (a2 + c2 == b2) || (c2 + b2 == a2)) return 1 //Проверяем, является ли треугольник прямоугольным
+    else if ((a2 + b2 > c2) && (a2 + c2 > b2) && (c2 + b2 > a2)) return 0 // Проверяем, является ли треугольник остроугольным
+    return 2 //Проверяем, является ли треугольник тупоугольным
 }
 
 /**
@@ -130,10 +136,11 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
 
-    if ((b > d) && (c < a) && (d > a)) return (d - a)
-    else if ((d > b) && (b > c) && (a < c)) return (b - c)
-    else if ((d > b) && (a > c)) return (b - a)
-    else if ((b > d) && (c > a)) return (d - c)
-    else if ((b == c) || (d == a)) return 0
-    return -1
+    return when { ((b > d) && (c < a) && (d > a)) -> (d - a) //Случай, при котором отрезок DC пересекается с отрезком АВ
+        ((d > b) && (b > c) && (a < c)) -> (b - c) //Случай, при котором отрезок AB пересекается с отрезком DC
+        ((d > b) && (a > c)) -> (b - a) //Случай, при котором отрезок AB входит в отрезок DC
+        ((b > d) && (c > a)) -> (d - c) //Случай, при котором отрезок DC входит в отрезрок АВ
+        ((b == c) || (d == a)) -> 0 //Случай, при котором отрезки равны и лежат друг на друге
+        else -> -1
+    }
 }
