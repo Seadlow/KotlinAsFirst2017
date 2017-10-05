@@ -1,5 +1,8 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson3.task1
+
+import java.lang.Math.sqrt
 
 /**
  * Пример
@@ -34,7 +37,7 @@ fun isPrime(n: Int): Boolean {
  */
 fun isPerfect(n: Int): Boolean {
     var sum = 1
-    for (m in 2..n/2) {
+    for (m in 2..n / 2) {
         if (n % m > 0) continue
         sum += m
         if (sum > n) break
@@ -60,7 +63,15 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  * Найти количество цифр в заданном числе n.
  * Например, число 1 содержит 1 цифру, 456 -- 3 цифры, 65536 -- 5 цифр.
  */
-fun digitNumber(n: Int): Int = TODO()
+fun digitNumber(n: Int): Int {
+    var result = 1
+    var n1 = n
+    while (n1 > 9) {
+        n1 /= 10
+        result += 1
+    }
+    return result
+}
 
 /**
  * Простая
@@ -76,21 +87,43 @@ fun fib(n: Int): Int = TODO()
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int = TODO()
+fun lcm(m: Int, n: Int): Int {
+    var minmod = m * n
+
+    for (k in 1..m * n) {
+        if ((k % n == 0) && (k % m == 0) && (k <= minmod))
+            minmod = k
+    }
+    return minmod
+}
 
 /**
  * Простая
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int = TODO()
+fun minDivisor(n: Int): Int {
+    var minmod = n
+    for (m in 2..n) {
+        if ((n % m == 0) && (m < minmod))
+            minmod = m
+    }
+    return minmod
+}
 
 /**
  * Простая
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int = TODO()
+fun maxDivisor(n: Int): Int {
+    var maxmod = 0
+    for (m in 1..n) {
+        if ((n % m == 0) && (m > maxmod) && (m != n))
+            maxmod = m
+    }
+    return maxmod
+}
 
 /**
  * Простая
@@ -99,7 +132,12 @@ fun maxDivisor(n: Int): Int = TODO()
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean = TODO()
+fun isCoPrime(m: Int, n: Int): Boolean {
+    for (k in 2..m * n) {
+        if ((n % k == 0) && (m % k == 0)) return false
+    }
+    return true
+}
 
 /**
  * Простая
@@ -108,7 +146,12 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
  * то есть, существует ли такое целое k, что m <= k*k <= n.
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
-fun squareBetweenExists(m: Int, n: Int): Boolean = TODO()
+fun squareBetweenExists(m: Int, n: Int): Boolean {
+    for (k in m..n) {
+        if (sqrt(k.toDouble()) % 1 == 0.0) return true
+    }
+    return false
+}
 
 /**
  * Средняя
@@ -134,7 +177,16 @@ fun cos(x: Double, eps: Double): Double = TODO()
  * Поменять порядок цифр заданного числа n на обратный: 13478 -> 87431.
  * Не использовать строки при решении задачи.
  */
-fun revert(n: Int): Int = TODO()
+fun revert(n: Int): Int {
+    var number = n
+    var newnumb = 0
+    while (number > 0) {
+        val revertn = number % 10
+        newnumb = revertn + newnumb * 10
+        number /= 10
+    }
+    return newnumb
+}
 
 /**
  * Средняя
@@ -143,7 +195,19 @@ fun revert(n: Int): Int = TODO()
  * первая цифра равна последней, вторая -- предпоследней и так далее.
  * 15751 -- палиндром, 3653 -- нет.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean {
+    var number = n
+    var revertn = 0
+    var newnumb = 0
+    while (number > 0) {
+        revertn = number % 10
+        newnumb = revertn + newnumb * 10
+        number /= 10
+    }
+    if (newnumb == n) return true
+    else return false
+
+}
 
 /**
  * Средняя
