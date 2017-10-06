@@ -66,7 +66,7 @@ fun digitCountInNumber(n: Int, m: Int): Int =
 fun digitNumber(n: Int): Int {
     var result = 1
     var n1 = n
-    while (n1 > 9) {
+    while (n1 / 10 != 0) {
         n1 /= 10
         result += 1
     }
@@ -133,7 +133,7 @@ fun maxDivisor(n: Int): Int {
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
-    for (k in 2..m * n) {
+    for (k in 2..m + n) {
         if ((n % k == 0) && (m % k == 0)) return false
     }
     return true
@@ -224,7 +224,20 @@ fun hasDifferentDigits(n: Int): Boolean = TODO()
  * 149162536496481100121144...
  * Например, 2-я цифра равна 4, 7-я 5, 12-я 6.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    var count = 0
+    var ans = 0;
+    var s1 = ""
+    for (k in 1..n * n) {
+        s1 += k * k
+        count++
+        if (count >= n) {
+            ans = s1[n - 1].toString().toInt()
+            break
+        }
+    }
+    return ans;
+}
 
 /**
  * Сложная
