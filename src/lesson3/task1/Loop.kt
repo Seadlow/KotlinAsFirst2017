@@ -2,6 +2,7 @@
 
 package lesson3.task1
 
+import lesson4.task1.convertToString
 import java.lang.Math.sqrt
 
 /**
@@ -225,18 +226,13 @@ fun hasDifferentDigits(n: Int): Boolean = TODO()
  * Например, 2-я цифра равна 4, 7-я 5, 12-я 6.
  */
 fun squareSequenceDigit(n: Int): Int {
-    var count = 0
-    var ans = 0;
-    var s1 = ""
-    for (k in 1..n * n) {
-        s1 += k * k
-        count++
-        if (count >= n) {
-            ans = s1[n - 1].toString().toInt()
-            break
-        }
+    var k = 0
+    var s = ""
+    while (s.length <= n) {
+        k++
+        s += k * k
     }
-    return ans;
+    return s[n-1].toString().toInt()
 }
 
 /**
