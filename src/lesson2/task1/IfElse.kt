@@ -36,10 +36,11 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
 fun ageDescription(age: Int): String {
-    if (age / 10 % 10 == 1) return age.toString() + " лет"
-    else if ((age % 10 >= 2) && (age % 10 <= 4)) return age.toString() + " года"
-    else if (age % 10 == 1) return age.toString() + " год"
-    return age.toString() + " лет"
+    return when {(age / 10 % 10 == 1) -> "$age лет"
+        ((age % 10 >= 2) && (age % 10 <= 4)) -> "$age года"
+        (age % 10 == 1) -> "$age год"
+        else -> "$age лет"
+    }
 }
 
 /**
@@ -56,9 +57,10 @@ fun timeForHalfWay(t1: Double, v1: Double,
     val secondpart = t2 * v2
     val thirdpart = t3 * v3
     val route = firstpart + secondpart + thirdpart
-    if (firstpart >= (route / 2.0)) return t1 - (firstpart - route / 2) / v1
-    else if ((firstpart + secondpart) < (route / 2.0)) return (thirdpart - route / 2.0) / v3 + t1 + t2
-    else return (route / 2.0 - firstpart) / v2 + t1
+    return when { (firstpart >= (route / 2.0)) -> t1 - (firstpart - route / 2) / v1
+         ((firstpart+secondpart) < (route / 2.0)) -> (thirdpart-route / 2.0) / v3+t1+t2
+        else -> (route / 2.0-firstpart) / v2+t1
+    }
 }
 
 /**
@@ -77,12 +79,11 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
     val rookrouteX2 = (kingX == rookX2)
     val rookrouteY1 = (kingY == rookY1)
     val rookrouteY2 = (kingY == rookY2)
-    if ((!rookrouteX1 && !rookrouteY1) && (!rookrouteX2 && !rookrouteY2)) return 0
-    else if ((rookrouteX1 || rookrouteY1) && (!rookrouteX2 && !rookrouteY2)) return 1
-    else if ((!rookrouteX1 && !rookrouteY1) && (rookrouteX2 || rookrouteY2)) return 2
-    else
-        return 3
-
+    return when { ((!rookrouteX1 && !rookrouteY1) && (!rookrouteX2 && !rookrouteY2)) -> 0
+        ((rookrouteX1 || rookrouteY1) && (!rookrouteX2 && !rookrouteY2)) -> 1
+        ((!rookrouteX1 && !rookrouteY1) && (rookrouteX2 || rookrouteY2)) -> 2
+        else ->3
+    }
 }
 
 /**
@@ -102,10 +103,11 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
     val bishoprouteY = (Math.abs(kingY - bishopY))
     val rookrouteX = (kingX == rookX)
     val rookrouteY = (kingY == rookY)
-    if ((rookrouteX || (kingY == rookY)) && (bishoprouteX == bishoprouteY)) return 3
-    else if ((!rookrouteX && !rookrouteY) && (bishoprouteX == bishoprouteY)) return 2
-    else if ((rookrouteX || rookrouteY) && (bishoprouteX != bishoprouteY)) return 1
-    else return 0
+    return when { ((rookrouteX || (kingY == rookY)) && (bishoprouteX == bishoprouteY)) -> 3
+        ((!rookrouteX && !rookrouteY) && (bishoprouteX == bishoprouteY)) -> 2
+        ((rookrouteX || rookrouteY) && (bishoprouteX != bishoprouteY)) -> 1
+        else -> 0
+    }
 }
 
 /**
@@ -120,10 +122,11 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
     val a2 = pow(a, 2.0)
     val b2 = pow(b, 2.0)
     val c2 = pow(c, 2.0)
-    if ((a + b <= c) || (a + c <= b) || (b + c <= a)) return -1 //Проверяем существование треугольника
-    else if ((a2 + b2 == c2) || (a2 + c2 == b2) || (c2 + b2 == a2)) return 1 //Проверяем, является ли треугольник прямоугольным
-    else if ((a2 + b2 > c2) && (a2 + c2 > b2) && (c2 + b2 > a2)) return 0 // Проверяем, является ли треугольник остроугольным
-    return 2 //Проверяем, является ли треугольник тупоугольным
+    return when { ((a + b <= c) || (a + c <= b) || (b + c <= a)) -> -1 //Проверяем существование треугольника
+        ((a2+b2 == c2) || (a2+c2 == b2) || (c2+b2 == a2)) -> 1 //Проверяем, является ли треугольник прямоугольным
+        ((a2+b2 > c2) && (a2+c2 > b2) && (c2+b2 > a2)) -> 0 // Проверяем, является ли треугольник остроугольным
+            else -> 2 //Проверяем, является ли треугольник тупоугольным
+    }
 }
 
 /**

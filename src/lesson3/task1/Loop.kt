@@ -3,6 +3,7 @@
 package lesson3.task1
 
 import lesson4.task1.convertToString
+import java.lang.Math.log10
 import java.lang.Math.sqrt
 
 /**
@@ -198,16 +199,14 @@ fun revert(n: Int): Int {
  */
 fun isPalindrome(n: Int): Boolean {
     var number = n
-    var revertn = 0
+    var revertn: Int
     var newnumb = 0
     while (number > 0) {
         revertn = number % 10
         newnumb = revertn + newnumb * 10
         number /= 10
     }
-    if (newnumb == n) return true
-    else return false
-
+    return newnumb == n
 }
 
 /**
@@ -226,13 +225,15 @@ fun hasDifferentDigits(n: Int): Boolean = TODO()
  * Например, 2-я цифра равна 4, 7-я 5, 12-я 6.
  */
 fun squareSequenceDigit(n: Int): Int {
-    var k = 0
-    var s = ""
-    while (s.length <= n) {
-        k++
-        s += k * k
+    var number = 0
+    var length = 0
+    var sublength = 0;
+    while (length < n) {
+        number++
+        sublength = (number * number).toString().length
+        length += sublength
     }
-    return s[n-1].toString().toInt()
+    return (number * number).toString()[sublength - length + n - 1].toString().toInt()
 }
 
 /**
