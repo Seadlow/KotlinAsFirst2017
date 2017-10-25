@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson4.task1
 
 import lesson1.task1.discriminant
@@ -113,7 +114,13 @@ fun abs(v: List<Double>): Double = TODO()
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Double = TODO()
+fun mean(list: List<Double>): Double
+{
+    return if (list.size > 0.0) {
+        list.sum() / list.size
+    } else 0.0
+}
+
 
 /**
  * Средняя
@@ -123,7 +130,19 @@ fun mean(list: List<Double>): Double = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun center(list: MutableList<Double>): MutableList<Double> = TODO()
+fun center(list: MutableList<Double>): MutableList<Double> {
+    var k = 0.0
+    if (list.size > 0) {
+        k = list.sum() / list.size
+    }
+    if (list.size > 0) {
+        for (i in 0 until list.size) {
+            list[i] -= k
+        }
+    }
+    return list
+
+}
 
 /**
  * Средняя
@@ -190,7 +209,7 @@ fun convert(n: Int, base: Int): List<Int> = TODO()
  * строчными буквами: 10 -> a, 11 -> b, 12 -> c и так далее.
  * Например: n = 100, base = 4 -> 1210, n = 250, base = 14 -> 13c
  */
-fun convertToString(n: Int, base: Int): String = TODO()
+fun convertToString(n: Int, base: Int): Int = TODO()
 
 /**
  * Средняя

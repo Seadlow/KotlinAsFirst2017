@@ -2,8 +2,7 @@
 
 package lesson3.task1
 
-import lesson4.task1.convertToString
-import java.lang.Math.log10
+import java.lang.Math.abs
 import java.lang.Math.sqrt
 
 /**
@@ -81,7 +80,17 @@ fun digitNumber(n: Int): Int {
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = TODO()
+fun fib(n: Int): Int {
+    var fibsum = 1
+    var fib1 = 0
+    var fib2: Int
+    for (k in 1 until n) {
+        fib2 = fibsum
+        fibsum += fib1
+        fib1 = fib2
+    }
+    return fibsum
+}
 
 /**
  * Простая
@@ -89,15 +98,19 @@ fun fib(n: Int): Int = TODO()
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int {
-    var minmod = m * n
-
-    for (k in 1..m * n) {
-        if ((k % n == 0) && (k % m == 0) && (k <= minmod))
-            minmod = k
+fun gcd(a: Int, b: Int): Int {
+    var t: Int
+    var y = a
+    var u = b
+    while (u != 0) {
+        t = u
+        u = y % u
+        y = t
     }
-    return minmod
+    return y
 }
+
+fun lcm(m: Int, n: Int): Int = abs(m * n) / gcd(m, n)
 
 /**
  * Простая
@@ -197,17 +210,7 @@ fun revert(n: Int): Int {
  * первая цифра равна последней, вторая -- предпоследней и так далее.
  * 15751 -- палиндром, 3653 -- нет.
  */
-fun isPalindrome(n: Int): Boolean {
-    var number = n
-    var revertn: Int
-    var newnumb = 0
-    while (number > 0) {
-        revertn = number % 10
-        newnumb = revertn + newnumb * 10
-        number /= 10
-    }
-    return newnumb == n
-}
+fun isPalindrome(n: Int): Boolean = revert(n) == n
 
 /**
  * Средняя
@@ -227,7 +230,7 @@ fun hasDifferentDigits(n: Int): Boolean = TODO()
 fun squareSequenceDigit(n: Int): Int {
     var number = 0
     var length = 0
-    var sublength = 0;
+    var sublength = 0
     while (length < n) {
         number++
         sublength = (number * number).toString().length
@@ -243,4 +246,14 @@ fun squareSequenceDigit(n: Int): Int {
  * 1123581321345589144...
  * Например, 2-я цифра равна 1, 9-я 2, 14-я 5.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int {
+    var number = 0
+    var length = 0
+    var sublength = 0
+    while (length < n) {
+        number++
+        sublength = (fib(number)).toString().length
+        length += sublength
+    }
+    return (fib(number)).toString()[sublength - length + n - 1].toString().toInt()
+}

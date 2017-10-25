@@ -20,11 +20,11 @@ fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
  * Определить, счастливое ли заданное число, вернуть true, если это так.
  */
 fun isNumberHappy(number: Int): Boolean {
-    val firstnumber = number % 10
-    val secondnumber = number / 10 % 10
-    val thirdnumber = number / 100 % 10
-    val fourthnumber = number / 1000 % 10
-    return  ((firstnumber + secondnumber) == (thirdnumber + fourthnumber))
+    val firstNumber = number % 10
+    val secondNumber = number / 10 % 10
+    val thirdNumber = number / 100 % 10
+    val fourthNumber = number / 1000 % 10
+    return ((firstNumber + secondNumber) == (thirdNumber + fourthNumber))
 }
 
 /**
@@ -34,10 +34,8 @@ fun isNumberHappy(number: Int): Boolean {
  * Определить, угрожают ли они друг другу. Вернуть true, если угрожают.
  * Считать, что ферзи не могут загораживать друг друга.
  */
-fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
-    return (x1 == x2) || (y1 == y2) ||
-            ((Math.abs(x1 - x2)) == (Math.abs(y1 - y2)))
-}
+fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean =
+        (x1 == x2) || (y1 == y2) || ((Math.abs(x1 - x2)) == (Math.abs(y1 - y2)))
 
 /**
  * Средняя
@@ -49,7 +47,7 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
 fun circleInside(x1: Double, y1: Double, r1: Double,
                  x2: Double, y2: Double, r2: Double): Boolean {
     return ((pow((x2 - x1), 2.0) + pow((y2 - y1), 2.0))
-            <= pow((r2 - r1), 2.0))&& (r2 >= r1)
+            <= pow((r2 - r1), 2.0)) && (r2 >= r1)
 
 }
 
@@ -63,7 +61,7 @@ fun circleInside(x1: Double, y1: Double, r1: Double,
  * Вернуть true, если кирпич пройдёт
  */
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
-    return ((a<=r)&&(b<=s))||((a<=r)&&(c<=s))||((b<=r)&&(c<=s))||
-                ((a<=s)&&(b<=r))||((a<=s)&&(c<=r))||((b<=s)&&(c<=r))
+    return ((a <= r) && (b <= s)) || ((a <= r) && (c <= s)) || ((b <= r) && (c <= s)) ||
+            ((a <= s) && (b <= r)) || ((a <= s) && (c <= r)) || ((b <= s) && (c <= r))
 
 }

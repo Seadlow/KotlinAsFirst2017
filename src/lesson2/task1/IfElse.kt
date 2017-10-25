@@ -35,13 +35,13 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String {
-    return when {(age / 10 % 10 == 1) -> "$age лет"
-        ((age % 10 >= 2) && (age % 10 <= 4)) -> "$age года"
-        (age % 10 == 1) -> "$age год"
-        else -> "$age лет"
-    }
+fun ageDescription(age: Int): String = when {
+    (age / 10 % 10 == 1) -> "$age лет"
+    ((age % 10 >= 2) && (age % 10 <= 4)) -> "$age года"
+    (age % 10 == 1) -> "$age год"
+    else -> "$age лет"
 }
+
 
 /**
  * Простая
@@ -53,13 +53,14 @@ fun ageDescription(age: Int): String {
 fun timeForHalfWay(t1: Double, v1: Double,
                    t2: Double, v2: Double,
                    t3: Double, v3: Double): Double {
-    val firstpart = t1 * v1
-    val secondpart = t2 * v2
-    val thirdpart = t3 * v3
-    val route = firstpart + secondpart + thirdpart
-    return when { (firstpart >= (route / 2.0)) -> t1 - (firstpart - route / 2) / v1
-         ((firstpart+secondpart) < (route / 2.0)) -> (thirdpart-route / 2.0) / v3+t1+t2
-        else -> (route / 2.0-firstpart) / v2+t1
+    val firstPart = t1 * v1
+    val secondPart = t2 * v2
+    val thirdPart = t3 * v3
+    val route = firstPart + secondPart + thirdPart
+    return when {
+        (firstPart >= (route / 2.0)) -> t1 - (firstPart - route / 2) / v1
+        ((firstPart + secondPart) < (route / 2.0)) -> (thirdPart - route / 2.0) / v3 + t1 + t2
+        else -> (route / 2.0 - firstPart) / v2 + t1
     }
 }
 
@@ -75,14 +76,15 @@ fun timeForHalfWay(t1: Double, v1: Double,
 fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX1: Int, rookY1: Int,
                        rookX2: Int, rookY2: Int): Int {
-    val rookrouteX1 = (kingX == rookX1)
-    val rookrouteX2 = (kingX == rookX2)
-    val rookrouteY1 = (kingY == rookY1)
-    val rookrouteY2 = (kingY == rookY2)
-    return when { ((!rookrouteX1 && !rookrouteY1) && (!rookrouteX2 && !rookrouteY2)) -> 0
-        ((rookrouteX1 || rookrouteY1) && (!rookrouteX2 && !rookrouteY2)) -> 1
-        ((!rookrouteX1 && !rookrouteY1) && (rookrouteX2 || rookrouteY2)) -> 2
-        else ->3
+    val rookRouteX1 = (kingX == rookX1)
+    val rookRouteX2 = (kingX == rookX2)
+    val rookRouteY1 = (kingY == rookY1)
+    val rookRouteY2 = (kingY == rookY2)
+    return when {
+        ((!rookRouteX1 && !rookRouteY1) && (!rookRouteX2 && !rookRouteY2)) -> 0
+        ((rookRouteX1 || rookRouteY1) && (!rookRouteX2 && !rookRouteY2)) -> 1
+        ((!rookRouteX1 && !rookRouteY1) && (rookRouteX2 || rookRouteY2)) -> 2
+        else -> 3
     }
 }
 
@@ -99,13 +101,14 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
                           bishopX: Int, bishopY: Int): Int {
-    val bishoprouteX = (Math.abs(kingX - bishopX))
-    val bishoprouteY = (Math.abs(kingY - bishopY))
-    val rookrouteX = (kingX == rookX)
-    val rookrouteY = (kingY == rookY)
-    return when { ((rookrouteX || (kingY == rookY)) && (bishoprouteX == bishoprouteY)) -> 3
-        ((!rookrouteX && !rookrouteY) && (bishoprouteX == bishoprouteY)) -> 2
-        ((rookrouteX || rookrouteY) && (bishoprouteX != bishoprouteY)) -> 1
+    val bishopRouteX = (Math.abs(kingX - bishopX))
+    val bishopRouteY = (Math.abs(kingY - bishopY))
+    val rookRouteX = (kingX == rookX)
+    val rookRouteY = (kingY == rookY)
+    return when {
+        ((rookRouteX || (kingY == rookY)) && (bishopRouteX == bishopRouteY)) -> 3
+        ((!rookRouteX && !rookRouteY) && (bishopRouteX == bishopRouteY)) -> 2
+        ((rookRouteX || rookRouteY) && (bishopRouteX != bishopRouteY)) -> 1
         else -> 0
     }
 }
@@ -122,10 +125,11 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
     val a2 = pow(a, 2.0)
     val b2 = pow(b, 2.0)
     val c2 = pow(c, 2.0)
-    return when { ((a + b <= c) || (a + c <= b) || (b + c <= a)) -> -1 //Проверяем существование треугольника
-        ((a2+b2 == c2) || (a2+c2 == b2) || (c2+b2 == a2)) -> 1 //Проверяем, является ли треугольник прямоугольным
-        ((a2+b2 > c2) && (a2+c2 > b2) && (c2+b2 > a2)) -> 0 // Проверяем, является ли треугольник остроугольным
-            else -> 2 //Проверяем, является ли треугольник тупоугольным
+    return when {
+        ((a + b <= c) || (a + c <= b) || (b + c <= a)) -> -1 //Проверяем существование треугольника
+        ((a2 + b2 == c2) || (a2 + c2 == b2) || (c2 + b2 == a2)) -> 1 //Проверяем, является ли треугольник прямоугольным
+        ((a2 + b2 > c2) && (a2 + c2 > b2) && (c2 + b2 > a2)) -> 0 // Проверяем, является ли треугольник остроугольным
+        else -> 2 //Проверяем, является ли треугольник тупоугольным
     }
 }
 
@@ -139,7 +143,8 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
 
-    return when { ((b >= d) && (c <= a) && (d >= a)) -> (d - a) //Случай, при котором отрезок DC пересекается с отрезком АВ
+    return when {
+        ((b >= d) && (c <= a) && (d >= a)) -> (d - a) //Случай, при котором отрезок DC пересекается с отрезком АВ
         ((d >= b) && (b >= c) && (a <= c)) -> (b - c) //Случай, при котором отрезок AB пересекается с отрезком DC
         ((d >= b) && (a >= c)) -> (b - a) //Случай, при котором отрезок AB входит в отрезок DC
         ((b >= d) && (c >= a)) -> (d - c) //Случай, при котором отрезок DC входит в отрезрок АВ
