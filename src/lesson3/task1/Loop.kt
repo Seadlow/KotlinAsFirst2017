@@ -110,7 +110,7 @@ fun gcd(a: Int, b: Int): Int {
     return y
 }
 
-fun lcm(m: Int, n: Int): Int = abs(m * n) / gcd(m, n)
+fun lcm(m: Int, n: Int): Int = m / gcd(m, n) * n
 
 /**
  * Простая
@@ -118,12 +118,12 @@ fun lcm(m: Int, n: Int): Int = abs(m * n) / gcd(m, n)
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    var minmod = n
-    for (m in 2..n) {
-        if ((n % m == 0) && (m < minmod))
-            minmod = m
+    for (m in 2..n / 2) {
+        if (n % m == 0) {
+            return m
+        }
     }
-    return minmod
+    return n
 }
 
 /**
@@ -132,12 +132,11 @@ fun minDivisor(n: Int): Int {
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
 fun maxDivisor(n: Int): Int {
-    var maxmod = 0
-    for (m in 1..n) {
-        if ((n % m == 0) && (m > maxmod) && (m != n))
-            maxmod = m
+    for (m in (n / 2) downTo 1) {
+        if (n % m == 0)
+            return m
     }
-    return maxmod
+    return n
 }
 
 /**
@@ -147,12 +146,7 @@ fun maxDivisor(n: Int): Int {
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean {
-    for (k in 2..m + n) {
-        if ((n % k == 0) && (m % k == 0)) return false
-    }
-    return true
-}
+fun isCoPrime(m: Int, n: Int): Boolean = (gcd(m, n) == 1)
 
 /**
  * Простая
@@ -163,7 +157,8 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  */
 fun squareBetweenExists(m: Int, n: Int): Boolean {
     for (k in m..n) {
-        if (sqrt(k.toDouble()) % 1 == 0.0) return true
+        val square = sqrt(k.toDouble())
+        if ((square == Math.floor(square))) return true
     }
     return false
 }
@@ -218,7 +213,15 @@ fun isPalindrome(n: Int): Boolean = revert(n) == n
  * Для заданного числа n определить, содержит ли оно различающиеся цифры.
  * Например, 54 и 323 состоят из разных цифр, а 111 и 0 из одинаковых.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean {
+    var number = n
+    val digit = number % 10
+    while (number>0) {
+        if (digit != number % 10) return true
+        number /= 10
+    }
+    return false
+}
 
 /**
  * Сложная

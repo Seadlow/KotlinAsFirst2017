@@ -24,7 +24,7 @@ fun isNumberHappy(number: Int): Boolean {
     val secondNumber = number / 10 % 10
     val thirdNumber = number / 100 % 10
     val fourthNumber = number / 1000 % 10
-    return ((firstNumber + secondNumber) == (thirdNumber + fourthNumber))
+    return firstNumber + secondNumber == thirdNumber + fourthNumber
 }
 
 /**
@@ -61,7 +61,8 @@ fun circleInside(x1: Double, y1: Double, r1: Double,
  * Вернуть true, если кирпич пройдёт
  */
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
-    return ((a <= r) && (b <= s)) || ((a <= r) && (c <= s)) || ((b <= r) && (c <= s)) ||
-            ((a <= s) && (b <= r)) || ((a <= s) && (c <= r)) || ((b <= s) && (c <= r))
-
+    val min = minOf(a, b, c)
+    val max = maxOf(a, b, c)
+    val mid = a + b + c - min - max
+    return (min <= minOf(r, s)) && (mid <= maxOf(r, s))
 }
