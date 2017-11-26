@@ -199,7 +199,6 @@ fun plusMinus(expression: String): Int {
                 ans -= parts[i].toInt()
                 i++
             }
-            else throw IllegalArgumentException("Wrong character")
         } else {
             sign = parts[i]
             i++
