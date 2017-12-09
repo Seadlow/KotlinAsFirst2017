@@ -118,7 +118,8 @@ fun lcm(m: Int, n: Int): Int = m / gcd(m, n) * n
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    for (m in 2..n / 2) {
+    val nCounter = Math.sqrt(n.toDouble()).toInt()
+    for (m in 2..nCounter) {
         if (n % m == 0) {
             return m
         }
@@ -132,11 +133,10 @@ fun minDivisor(n: Int): Int {
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
 fun maxDivisor(n: Int): Int {
-    for (m in (n / 2) downTo 1) {
+    for (m in n / 2 downTo minDivisor(n))
         if (n % m == 0)
             return m
-    }
-    return n
+    return 1
 }
 
 /**
@@ -158,7 +158,7 @@ fun isCoPrime(m: Int, n: Int): Boolean = (gcd(m, n) == 1)
 fun squareBetweenExists(m: Int, n: Int): Boolean {
     for (k in m..n) {
         val square = sqrt(k.toDouble())
-        if ((square == Math.floor(square))) return true
+        if (square.compareTo(Math.floor(square)) == 0) return true
     }
     return false
 }

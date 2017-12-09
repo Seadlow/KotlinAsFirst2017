@@ -123,7 +123,7 @@ fun abs(v: List<Double>): Double {
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
 fun mean(list: List<Double>): Double {
-    return if (list.size > 0.0)
+    return if (list.isNotEmpty())
         list.sum() / list.size
     else 0.0
 }
@@ -139,8 +139,7 @@ fun mean(list: List<Double>): Double {
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
     val meanFun = mean(list)
-    if (list.size > 0)
-        for (i in 0 until list.size) {
+    for (i in 0 until list.size) {
             list[i] -= meanFun
         }
     return list
@@ -201,7 +200,7 @@ fun accumulate(list: MutableList<Double>): MutableList<Double> {
  * Множители в списке должны располагаться по возрастанию.
  */
 fun factorize(n: Int): List<Int> {
-    var list = mutableListOf<Int>()
+    val list = mutableListOf<Int>()
     var number = n
     var digit = 2
     while (number >= digit) {
@@ -210,7 +209,6 @@ fun factorize(n: Int): List<Int> {
             number /= digit
         } else digit++
     }
-    list.sorted()
     return list
 }
 
@@ -232,7 +230,7 @@ fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*
 fun convert(n: Int, base: Int): List<Int> {
     val list = mutableListOf<Int>()
     var number = n
-    while (number > base) {
+    while (number >= base) {
         list.add(number % base)
         number /= base
     }
