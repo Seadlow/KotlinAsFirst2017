@@ -176,8 +176,8 @@ fun bestHighJump(jumps: String): Int {
     var maxJump = -1
     for (i in 1 until parts.size step 2) {
         try {
-            if ((i-1 > maxJump) && (parts[i].contains('+')))
-                maxJump = parts[i-1].toInt()
+            if ((parts[i - 1].toInt() > maxJump) && (parts[i].contains('+')))
+                maxJump = parts[i - 1].toInt()
         } catch (e: NumberFormatException) {
             return -1
         } catch (e: IndexOutOfBoundsException) {
@@ -235,17 +235,20 @@ fun plusMinus(expression: String): Int {
  */
 fun firstDuplicateIndex(str: String): Int {
     val parts = str.split(" ")
-    var counter = 0
-    try {
-        for (k in 0 until str.length) {
-            if (parts[k].toLowerCase() == parts[k + 1].toLowerCase()) {
-                return counter
-            } else {
-                counter += parts[k].length + 1
+    var counter = -1
+    if (str.trim().isNotEmpty()) {
+        counter = 0
+        try {
+            for (k in 0 until str.length) {
+                if (parts[k].toLowerCase() == parts[k + 1].toLowerCase()) {
+                    return counter
+                } else {
+                    counter += parts[k].length + 1
+                }
             }
+        } catch (e: IndexOutOfBoundsException) {
+            return -1
         }
-    } catch (e: IndexOutOfBoundsException) {
-        return -1
     }
     return counter
 }
@@ -265,25 +268,20 @@ fun mostExpensive(description: String): String {
     val parts = description.split("; ", " ")
     var maxPrice = 0.0
     var maxIndex = 0
-    try {
+    return try {
         for (i in 1..parts.lastIndex step 2) {
             val doubleParts = parts[i].toDouble()
-            if (doubleParts > maxPrice) {
+            if (doubleParts >= maxPrice) {
                 maxPrice = doubleParts
                 maxIndex = i
             }
         }
-        return parts[maxIndex - 1]
-//        val last = parts[parts.size - 1].toDouble()
-//        if (last > maxPrice) {
-//            maxIndex = parts.size - 2
-//        }
+        parts[maxIndex - 1]
     } catch (e: IndexOutOfBoundsException) {
-        return ""
+        ""
     } catch (e: NumberFormatException) {
-        return ""
+        ""
     }
-//    return parts[maxIndex]
 }
 
 /**
