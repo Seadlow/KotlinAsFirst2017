@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson7.task2
 
 import lesson7.task1.Matrix
@@ -59,7 +60,47 @@ operator fun Matrix<Int>.plus(other: Matrix<Int>): Matrix<Int> {
  * 10 11 12  5
  *  9  8  7  6
  */
-fun generateSpiral(height: Int, width: Int): Matrix<Int> = TODO()
+fun generateSpiral(height: Int, width: Int): Matrix<Int> {
+    var ans = createMatrix(height, width, 0)
+    var counter = 0
+    var minH = 0
+    var maxH = height - 1
+    var minW = 0
+    var maxW = width - 1
+    if ((height == 1) && (width == 1)) {
+        ans[0, 0] = 1
+    } else {
+        while (counter < width * height) {
+            for (i in minW..maxW) {
+                if (counter == width * height)
+                    break
+                ans[minH, i] = ++counter
+
+            }
+            for (i in (minH + 1)..maxH) {
+                if (counter == width * height)
+                    break
+                ans[i, maxW] = ++counter
+            }
+            for (j in (maxW - 1) downTo minW) {
+                if (counter == width * height)
+                    break
+                ans[maxH, j] = ++counter
+            }
+            for (i in (maxH - 1) downTo (minH + 1)) {
+                if (counter == width * height)
+                    break
+                ans[i, minW] = ++counter
+            }
+            minH++
+            maxH--
+            minW++
+            maxW--
+        }
+    }
+    return ans
+}
+
 
 /**
  * Сложная
@@ -75,7 +116,15 @@ fun generateSpiral(height: Int, width: Int): Matrix<Int> = TODO()
  *  1  2  2  2  2  1
  *  1  1  1  1  1  1
  */
-fun generateRectangles(height: Int, width: Int): Matrix<Int> = TODO()
+fun generateRectangles(height: Int, width: Int): Matrix<Int> {
+    val answer = createMatrix(height, width, 1)
+    for (i in 0 until answer.height) {
+        for (j in 0 until answer.width) {
+            answer[i, j] = minOf(minOf(i + 1, j + 1, height - i), width - j)
+        }
+    }
+    return answer
+}
 
 /**
  * Сложная
