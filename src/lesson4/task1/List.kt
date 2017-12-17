@@ -140,8 +140,8 @@ fun mean(list: List<Double>): Double {
 fun center(list: MutableList<Double>): MutableList<Double> {
     val meanFun = mean(list)
     for (i in 0 until list.size) {
-            list[i] -= meanFun
-        }
+        list[i] -= meanFun
+    }
     return list
 }
 
@@ -287,3 +287,52 @@ fun roman(n: Int): String = TODO()
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
 fun russian(n: Int): String = TODO()
+//    val units = listOf("", "один", "два", "три", "четыре", "пять",
+//            "шесть", "семь", "восемь", "девять",
+//            "десять")
+//    val dozens = listOf("", "десять", "двадцать", "тридцать", "сорок", "пятьдесят",
+//            "шестьдесят", "семьдесят", "восемьдесят", "девяносто")
+//    val hundreds = listOf("", "сто", "двести", "триста", "четыреста", "пятьсот",
+//            "шестьсот", "семьсот", "восемьсот", "девятьсот")
+//    val thousands = listOf("тысяч", "тысячи")
+//    val exceptionsOfDozens = listOf("", "", "", "", "", "", "", "", "", "", "", "одиннадцать",
+//            "двенадцать", "тринадцать", "четырнадцать", "пятнадцать",
+//            "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать")
+//    var answer = mutableListOf<String>()
+//    for (n in 0 until 999) {
+//            answer += hundreds[n / 100]
+//        if (((dozens[n % 100]).toInt() >= 11) && ((dozens[n % 100]).toInt() <= 19))
+//            answer += exceptionsOfDozens[n % 100]
+//        else {
+//            if (dozens[n % 100 / 10] in units)
+//                answer + dozens[n % 100 / 10]
+//            else answer += ""
+//            if (units[n % 10] in units)
+//                answer += units[n % 10]
+//            else answer += ""
+//        }
+//        return answer
+//    }
+//    var k: Int = n % 1000
+//    var t: Int = n / 1000
+//    var counter = Math.log10(n.toDouble()) + 1
+//    for (k in 0 until 999)
+//        answer += [n / 100]
+//    for (k in 0 until 999)
+//        answer += hundreds[n % 100 / 10]
+//    for (k in 0 until 999)
+//        answer += hundreds[n % 10]
+//    return answer
+
+
+
+
+
+
+
+
+
+
+
+
+
